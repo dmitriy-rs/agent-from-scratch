@@ -1,5 +1,5 @@
 import ora from 'ora'
-import type { AIMessage } from '../types'
+import type { AIMessage } from './ai'
 
 export const showLoader = (text: string) => {
   const spinner = ora({
