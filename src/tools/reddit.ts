@@ -12,7 +12,7 @@ const parameters = z
   )
 
 export const redditLast = createTool({
-  name: 'reddit_last',
+  name: 'reddit.last',
   description: 'Use this tool to get the latest posts from Reddit.',
   parameters,
   fn: async ({ toolArgs }) => {
@@ -22,7 +22,7 @@ export const redditLast = createTool({
 })
 
 export const redditRandom = createTool({
-  name: 'reddit_random',
+  name: 'reddit.random',
   description: 'Use this tool to get the random posts from Reddit. Pick random from the provided list',
   parameters,
   fn: async ({ toolArgs }) => {
@@ -45,8 +45,9 @@ function mapToolResponse(res: RedditResponse): string {
     title: child.data.title,
     link: child.data.url,
     subreddit: child.data.subreddit_name_prefixed,
-    author: child.data.author,
-    upvotes: child.data.ups,
+    dominantColor: child.data.link_flair_background_color,
+    permalink: child.data.permalink,
+    nswf: child.data.over_18
   }))
 
   return JSON.stringify(relevantInfo, null, 2)
