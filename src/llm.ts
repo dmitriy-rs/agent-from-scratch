@@ -1,7 +1,8 @@
 import { openai, type AIMessage, type AIModel, type AITool } from './ai'
 import { zodFunction } from 'openai/helpers/zod'
+import { systemPrompt } from './systemPrompt'
 
-export const runLLM = async ({
+export async function runLLM({
   model = 'gpt-4o-mini',
   messages,
   temperature = 0.1,
@@ -11,12 +12,12 @@ export const runLLM = async ({
   temperature?: number
   model?: AIModel
   tools: AITool[]
-}): Promise<AIMessage> => {
+}): Promise<AIMessage> {
   const formattedTools = tools.map(zodFunction)
 
   const response = await openai.chat.completions.create({
     model,
-    messages,
+    messages: [{ role: 'system', content: systemPrompt }, ...messages],
     temperature,
     tools: formattedTools,
     tool_choice: 'auto',
@@ -25,4 +26,15 @@ export const runLLM = async ({
 
   const message = response.choices[0].message
   return message
+}
+
+export async function generateImageLLM(prompt: string) {
+  const response = await openai.images.generate({
+    model: 'dall-e-3',
+    prompt,
+    n: 1,
+    size: '1024x1024',
+  })
+
+  return response.data[0].url
 }

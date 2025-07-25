@@ -41,7 +41,7 @@ export async function runAgent({
       const toolResponse = await runTool(toolCall, userPrompt)
       await addMessage(getToolMessage(toolCall.id, toolResponse))
 
-      loader.update(`Executed: ${toolCall.function.name}`)
+      loader.update(`done: ${toolCall.function.name}`)
     }
   }
 }

@@ -5,6 +5,7 @@ const parameters = z
   .object({
     subreddit: z
       .string()
+      .optional()
       .describe('The name of the subreddit provided from user'),
   })
   .describe(
@@ -12,7 +13,7 @@ const parameters = z
   )
 
 export const redditLast = createTool({
-  name: 'reddit.last',
+  name: 'reddit_last',
   description: 'Use this tool to get the latest posts from Reddit.',
   parameters,
   fn: async ({ toolArgs }) => {
@@ -22,7 +23,7 @@ export const redditLast = createTool({
 })
 
 export const redditRandom = createTool({
-  name: 'reddit.random',
+  name: 'reddit_random',
   description: 'Use this tool to get the random posts from Reddit. Pick random from the provided list',
   parameters,
   fn: async ({ toolArgs }) => {
@@ -33,10 +34,10 @@ export const redditRandom = createTool({
 
 type RedditResponse = { data: any }
 
-async function redditFetcher({ subreddit }: { subreddit: string }) {
+async function redditFetcher({ subreddit }: { subreddit?: string }) {
   const url = subreddit
     ? `https://www.reddit.com/r/${subreddit}/.json`
-    : `https://www.reddit.com/r/.json`
+    : `https://www.reddit.com/.json`
   return (await fetch(url).then((res) => res.json())) as RedditResponse
 }
 
@@ -47,7 +48,7 @@ function mapToolResponse(res: RedditResponse): string {
     subreddit: child.data.subreddit_name_prefixed,
     dominantColor: child.data.link_flair_background_color,
     permalink: child.data.permalink,
-    nswf: child.data.over_18
+    nsfw: child.data.over_18
   }))
 
   return JSON.stringify(relevantInfo, null, 2)

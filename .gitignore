@@ -176,3 +176,6 @@ dist
 .env
 
 db.json 
+db*.json
+g
+gg

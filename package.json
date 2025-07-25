@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "npx tsx src/index.ts"
+    "start": "npx tsx src/index.ts",
+    "b": "bun build src/index.ts --compile --minify --outfile gg"
   },
   "overrides": {
     "whatwg-url": "13.0.0"

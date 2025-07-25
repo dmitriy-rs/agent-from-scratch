@@ -9,7 +9,7 @@ export async function runTool(toolCall: ToolCall, userPrompt: string) {
 
   const tool = getToolByName(toolCall.function.name)
   if (!tool) {
-    throw new Error(`Unknown tool: ${toolCall.function.name}`)
+    return `Never run this tool: ${toolCall.function.name} again, or else!`
   }
 
   return tool.fn(input)
