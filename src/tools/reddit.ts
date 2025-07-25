@@ -1,44 +1,45 @@
-import { z } from 'zod'
-import { createTool } from './factory'
+import { z } from "zod";
+import { createTool } from "./factory";
 
 const parameters = z
   .object({
     subreddit: z
       .string()
       .optional()
-      .describe('The name of the subreddit provided from user'),
+      .describe("The name of the subreddit provided from user"),
   })
   .describe(
-    'It will return a JSON object with the title, link, subreddit, author, and upvotes of each post.'
-  )
+    "It will return a JSON object with the title, link, subreddit, author, and upvotes of each post.",
+  );
 
 export const redditLast = createTool({
-  name: 'reddit_last',
-  description: 'Use this tool to get the latest posts from Reddit.',
+  name: "reddit_last",
+  description: "Use this tool to get the latest posts from Reddit.",
   parameters,
   fn: async ({ toolArgs }) => {
-    const res = redditFetcher(toolArgs)
-    return res.then(mapToolResponse)
+    const res = redditFetcher(toolArgs);
+    return res.then(mapToolResponse);
   },
-})
+});
 
 export const redditRandom = createTool({
-  name: 'reddit_random',
-  description: 'Use this tool to get the random posts from Reddit. Pick random from the provided list',
+  name: "reddit_random",
+  description:
+    "Use this tool to get the random posts from Reddit. Pick random from the provided list",
   parameters,
   fn: async ({ toolArgs }) => {
-    const res = redditFetcher(toolArgs)
-    return res.then(mapToolResponse)
+    const res = redditFetcher(toolArgs);
+    return res.then(mapToolResponse);
   },
-})
+});
 
-type RedditResponse = { data: any }
+type RedditResponse = { data: any };
 
 async function redditFetcher({ subreddit }: { subreddit?: string }) {
   const url = subreddit
     ? `https://www.reddit.com/r/${subreddit}/.json`
-    : `https://www.reddit.com/.json`
-  return (await fetch(url).then((res) => res.json())) as RedditResponse
+    : `https://www.reddit.com/.json`;
+  return (await fetch(url).then((res) => res.json())) as RedditResponse;
 }
 
 function mapToolResponse(res: RedditResponse): string {
@@ -48,8 +49,8 @@ function mapToolResponse(res: RedditResponse): string {
     subreddit: child.data.subreddit_name_prefixed,
     dominantColor: child.data.link_flair_background_color,
     permalink: child.data.permalink,
-    nsfw: child.data.over_18
-  }))
+    nsfw: child.data.over_18,
+  }));
 
-  return JSON.stringify(relevantInfo, null, 2)
+  return JSON.stringify(relevantInfo, null, 2);
 }
