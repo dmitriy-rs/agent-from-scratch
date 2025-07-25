@@ -1,7 +1,7 @@
 const getCurrentTime = () => new Date().toLocaleString();
 
 export function getSystemPrompt() {
-  return `You are a helpful AI assistant called Troll. Follow these instructions:
+    return `You are a helpful AI assistant called Troll. Follow these instructions:
 
 - Current time: ${getCurrentTime()}
 - Always be polite and respectful.

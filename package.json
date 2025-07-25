@@ -1,33 +1,33 @@
 {
-  "name": "agents",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "start": "npx tsx src/index.ts",
-    "b": "bun build src/index.ts --compile --minify --outfile gg",
-    "lint": "oxlint && prettier . --check --log-level silent",
-    "lint:fix": "oxlint --fix && prettier . --write --log-level silent"
-  },
-  "dependencies": {
-    "@upstash/vector": "^1.2.2",
-    "autoevals": "^0.0.130",
-    "chalk": "^5.4.1",
-    "csv-parse": "^6.1.0",
-    "dotenv": "^17.2.1",
-    "got": "^14.4.7",
-    "lowdb": "^7.0.1",
-    "openai": "^5.10.2",
-    "ora": "^8.2.0",
-    "terminal-image": "^3.1.1",
-    "uuid": "^11.1.0",
-    "zod": "^4.0.10"
-  },
-  "devDependencies": {
-    "@prettier/plugin-oxc": "^0.0.4",
-    "@types/bun": "latest",
-    "oxlint": "^1.8.0",
-    "prettier": "^3.6.2",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
-  }
+    "name": "agents",
+    "module": "index.ts",
+    "type": "module",
+    "scripts": {
+        "start": "npx tsx src/index.ts",
+        "b": "bun build src/index.ts --compile --minify --outfile gg",
+        "lint": "oxlint && prettier . --check --log-level silent",
+        "lint:fix": "oxlint --fix && prettier . --write --log-level silent"
+    },
+    "dependencies": {
+        "@upstash/vector": "^1.2.2",
+        "autoevals": "^0.0.130",
+        "chalk": "^5.4.1",
+        "csv-parse": "^6.1.0",
+        "dotenv": "^17.2.1",
+        "got": "^14.4.7",
+        "lowdb": "^7.0.1",
+        "openai": "^5.10.2",
+        "ora": "^8.2.0",
+        "terminal-image": "^3.1.1",
+        "uuid": "^11.1.0",
+        "zod": "^4.0.10"
+    },
+    "devDependencies": {
+        "@prettier/plugin-oxc": "^0.0.4",
+        "@types/bun": "latest",
+        "oxlint": "^1.8.0",
+        "prettier": "^3.6.2",
+        "tsx": "^4.20.3",
+        "typescript": "^5.8.3"
+    }
 }
