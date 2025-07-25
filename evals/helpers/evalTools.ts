@@ -34,7 +34,7 @@ const defaultData: Data = {
 };
 
 const getDb = async () => {
-    const db = await JSONFilePreset<Data>('results.json', defaultData);
+    const db = await JSONFilePreset<Data>('./evals/results.json', defaultData);
     return db;
 };
 

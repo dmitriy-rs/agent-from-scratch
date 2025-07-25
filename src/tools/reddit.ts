@@ -5,7 +5,6 @@ const parameters = z
     .object({
         subreddit: z
             .string()
-            .optional()
             .describe('The name of the subreddit provided from user'),
     })
     .describe(
@@ -25,7 +24,7 @@ export const redditLast = createTool({
 export const redditRandom = createTool({
     name: 'reddit_random',
     description:
-        'Use this tool to get the random posts from Reddit. Pick random from the provided list',
+        'Use this tool to get the random posts from Reddit. Pick needed post from the provided list',
     parameters,
     fn: async ({ toolArgs }) => {
         const res = redditFetcher(toolArgs);
@@ -35,7 +34,7 @@ export const redditRandom = createTool({
 
 type RedditResponse = { data: any };
 
-async function redditFetcher({ subreddit }: { subreddit?: string }) {
+async function redditFetcher({ subreddit }: { subreddit?: string | null }) {
     const url = subreddit
         ? `https://www.reddit.com/r/${subreddit}/.json`
         : `https://www.reddit.com/.json`;

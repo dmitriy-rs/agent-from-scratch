@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import type { ZodObject } from 'zod';
+import type { AnyZodObject } from 'zod';
 
 export const openai = new OpenAI();
 
@@ -10,7 +10,7 @@ export type AIMessage =
     | { role: 'user'; content: string }
     | { role: 'tool'; content: string; tool_call_id: string };
 
-export type AITool<TSchema extends ZodObject = ZodObject> = {
+export type AITool<TSchema extends AnyZodObject = AnyZodObject> = {
     name: string;
     parameters: TSchema;
     description?: string;

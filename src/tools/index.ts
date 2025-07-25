@@ -1,5 +1,5 @@
 import { dadJoke } from './dadJoke';
-import type { ToolReturn } from './factory';
+import type { ToolObject } from './factory';
 import { generateImage } from './generateImage';
 import { redditLast, redditRandom } from './reddit';
 
@@ -8,11 +8,11 @@ const toolsList = [
     redditRandom,
     redditLast,
     generateImage,
-] as ToolReturn[];
+] as ToolObject[];
 
 const toolsMap = toolsList.reduce(
     (acc, tool) => ({ ...acc, [tool.definition.name]: tool }),
-    {} as Record<string, ToolReturn>,
+    {} as Record<string, ToolObject>,
 );
 
 export function getToolByName(name: string) {
@@ -22,3 +22,5 @@ export function getToolByName(name: string) {
 export function getToolsList() {
     return toolsList.map((t) => t.definition);
 }
+
+export type { ToolObject };

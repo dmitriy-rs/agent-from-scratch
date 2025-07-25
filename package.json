@@ -4,9 +4,11 @@
     "type": "module",
     "scripts": {
         "start": "npx tsx src/index.ts",
+        "eval": "npx tsx evals/run.ts $1",
+        "ingest": "npx tsx src/rag/ingest.ts",
         "b": "bun build src/index.ts --compile --minify --outfile gg",
         "lint": "oxlint && prettier . --check --log-level silent",
-        "lint:fix": "oxlint --fix && prettier . --write --log-level silent"
+        "lint:fix": "oxlint --fix --fix-suggestions && prettier . --write --log-level silent"
     },
     "dependencies": {
         "@upstash/vector": "^1.2.2",
@@ -20,7 +22,7 @@
         "ora": "^8.2.0",
         "terminal-image": "^3.1.1",
         "uuid": "^11.1.0",
-        "zod": "^4.0.10"
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@prettier/plugin-oxc": "^0.0.4",
