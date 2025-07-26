@@ -1,20 +1,9 @@
 <script setup lang="ts">
-import ExperimentGraph from '../components/ExperimentGraph.vue'
 import results from '../../evals/results.json';
-import type { Experiment } from '../../evals/types';
 
-const selectedExperiment = ref(results.experiments[0]?.name);
-
-const currentExperiment = computed(() => {
-    const experiment = results.experiments.find(
-        (exp) => exp.name === selectedExperiment.value,
-    );
-    return experiment
-        ? {
-              ...experiment,
-              sets: experiment.sets.slice(-10),
-          } satisfies Experiment
-        : null;
+useHead({
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    title: "Evals Dashboard"
 });
 </script>
 
@@ -22,20 +11,7 @@ const currentExperiment = computed(() => {
     <div className="app">
         <h1>Experiment Results Viewer</h1>
 
-        <div className="controls">
-            <label htmlFor="experiment-select">Select Experiment: </label>
-
-            <select id="experiment-select" v-model="selectedExperiment">
-                <option v-for="exp in results.experiments" :key="exp.name" :value="exp.name">
-                    {{ exp.name }}
-                </option>
-            </select>
-        </div>
-
-        <ExperimentGraph
-            v-if="currentExperiment"
-            :experiment="currentExperiment"
-        />
+        <ExperimentResults :results="results.experiments" />
     </div>
 </template>
 
@@ -46,19 +22,9 @@ const currentExperiment = computed(() => {
     padding: 2rem;
 }
 
-.controls {
-    margin: 2rem 0;
-}
-
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-select {
-    margin-left: 1rem;
-    padding: 0.5rem;
-    font-size: 1rem;
+    font-size: 3.2em;
+    line-height: 1.1;
 }
 
 :root {
