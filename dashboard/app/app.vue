@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import type { Results } from '../../evals/types'
+import type { Results } from '../../evals/types';
 
 useHead({
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    title: "Evals Dashboard"
+    title: 'Evals Dashboard',
 });
 
-const { data: results, pending } = await useFetch<Results>(`/api/results`)
+const { data: results, pending } = await useFetch<Results>(`/api/results`);
 </script>
 
 <template>
     <div className="p-6">
         <h1 class="text-4xl">Experiment Results Viewer</h1>
 
-        <ExperimentResults v-if="!pending" :results="results?.experiments || []" />
+        <ExperimentResults
+            v-if="!pending"
+            :results="results?.experiments || []"
+        />
     </div>
 </template>
 

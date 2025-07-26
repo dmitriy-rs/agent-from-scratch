@@ -4,13 +4,13 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { readdir } from 'fs/promises';
 
+const evalName = process.argv[2];
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const experimentsDir = join(__dirname, 'experiments');
 
-const main = async () => {
-    const evalName = process.argv[2];
-    const experimentsDir = join(__dirname, 'experiments');
-
+export async function runEval(experimentsDir: string, evalName?: string) {
     try {
         if (evalName) {
             const evalPath = join(experimentsDir, `${evalName}.eval.ts`);
@@ -31,6 +31,6 @@ const main = async () => {
         );
         process.exit(1);
     }
-};
+}
 
-main();
+runEval(experimentsDir, evalName);

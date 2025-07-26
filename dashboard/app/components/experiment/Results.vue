@@ -3,6 +3,7 @@ import type { Experiment } from '../../../../evals/types';
 import Selector from './Selector.vue';
 import Graph from './Graph.vue';
 import SetMetadata from './SetMetadata.vue';
+import Actions from './Actions.vue';
 
 const { results } = defineProps<{
     results: Experiment[];
@@ -27,7 +28,10 @@ const currentExperiment = computed(() => {
     />
 
     <div v-if="currentExperiment" class="grid grid-cols-2">
-        <Graph :experiment="currentExperiment" />
+        <div class="flex flex-col gap-6">
+            <Graph :experiment="currentExperiment" />
+            <Actions :experiment-name="currentExperiment.name" />
+        </div>
 
         <div class="flex flex-col gap-3">
             <h2 class="text-xl">Latest experiment run</h2>

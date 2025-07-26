@@ -31,9 +31,7 @@ const labels = computed(() =>
     props.experiment.sets.map((_, i) => `Set ${i + 1}`),
 );
 
-const scores = computed(() =>
-    props.experiment.sets.map((set) => set.score),
-);
+const scores = computed(() => props.experiment.sets.map((set) => set.score));
 
 const chartData = computed(() => ({
     labels: labels.value,
@@ -68,11 +66,11 @@ const options = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-        legend: { 
+        legend: {
             position: 'top' as const,
         },
-        tooltip: { 
-            mode: 'index' as const, 
+        tooltip: {
+            mode: 'index' as const,
             intersect: false,
         },
     },
@@ -82,7 +80,7 @@ const options = {
 <template>
     <div>
         <h2>{{ experiment.name }} Scores</h2>
-        <div style="width: 600px; height: 400px;">
+        <div style="width: 600px; height: 400px">
             <Line :data="chartData" :options="options" />
         </div>
     </div>

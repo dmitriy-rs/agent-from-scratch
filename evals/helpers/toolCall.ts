@@ -7,22 +7,21 @@ import { ToolCallMatch } from '../helpers/scorers';
 interface EvalCallParams<TSchema extends AnyZodObject = AnyZodObject> {
     tool: ToolObject<TSchema>;
     input: string | string[];
-    name?: string
+    name?: string;
 }
 
 interface MultipleEvalCallParams {
-    prompts: EvalCallParams<any>[]
-    name?: string
+    prompts: EvalCallParams<any>[];
+    name?: string;
 }
 
 export async function runToolCallEval<TSchema extends AnyZodObject>(
     params: EvalCallParams<TSchema> | MultipleEvalCallParams,
 ) {
-    const evalTools = 'prompts' in params ? params.prompts : [params]
-    const evalName = params.name ?? evalTools.reduce(
-        (acc, t) => `${acc}_${t.tool.definition.name}`,
-        '',
-    );
+    const evalTools = 'prompts' in params ? params.prompts : [params];
+    const evalName =
+        params.name ??
+        evalTools.reduce((acc, t) => `${acc}_${t.tool.definition.name}`, '');
 
     const tools = evalTools.map((t) => t.tool.definition);
     const data = evalTools.flatMap((t) =>

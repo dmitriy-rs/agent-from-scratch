@@ -2,7 +2,9 @@
     "name": "agents",
     "module": "index.ts",
     "type": "module",
-    "workspaces": ["dashboard"],
+    "workspaces": [
+        "dashboard"
+    ],
     "scripts": {
         "start": "bun src/index.ts",
         "dashboard": "bun --filter dashboard dev",
