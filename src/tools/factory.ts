@@ -22,3 +22,7 @@ export function createTool<TSchema extends AnyZodObject = AnyZodObject>(
         fn,
     };
 }
+
+export function formatToolResponse<T>(v: T): string {
+    return JSON.stringify(v, null, 2);
+}

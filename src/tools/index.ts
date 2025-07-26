@@ -1,6 +1,7 @@
 import { dadJoke } from './dadJoke';
 import type { ToolObject } from './factory';
 import { generateImage } from './generateImage';
+import { movieSearch } from './movieSearch';
 import { redditLastest, redditRandom } from './reddit';
 
 const toolsList = [
@@ -8,6 +9,7 @@ const toolsList = [
     redditRandom,
     redditLastest,
     generateImage,
+    movieSearch,
 ] as ToolObject[];
 
 const toolsMap = toolsList.reduce(
@@ -21,6 +23,11 @@ export function getToolByName(name: string) {
 
 export function getToolsList() {
     return toolsList.map((t) => t.definition);
+}
+
+export function isToolNeedApproval(toolName: string) {
+    // return toolName === generateImage.definition.name;
+    return false
 }
 
 export type { ToolObject };

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createTool } from './factory';
+import { createTool, formatToolResponse } from './factory';
 
 const parameters = z
     .object({
@@ -51,5 +51,5 @@ function mapToolResponse(res: RedditResponse): string {
         nsfw: child.data.over_18,
     }));
 
-    return JSON.stringify(relevantInfo, null, 2);
+    return formatToolResponse(relevantInfo);
 }

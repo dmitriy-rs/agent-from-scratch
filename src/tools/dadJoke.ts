@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { createTool } from './factory';
 
 export const dadJoke = createTool({
-    name: 'dad_joke' as const,
+    name: 'dad_joke',
     parameters: z.object({}),
     description: 'get a dad joke',
     fn: async () => {
