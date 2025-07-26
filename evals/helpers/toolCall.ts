@@ -4,24 +4,49 @@ import type { ToolObject } from '../../src/tools/factory';
 import { runEval } from '../helpers/evalTools';
 import { ToolCallMatch } from '../helpers/scorers';
 
+interface EvalCallParams<TSchema extends AnyZodObject = AnyZodObject> {
+    tool: ToolObject<TSchema>;
+    input: string | string[];
+    name?: string
+}
+
+interface MultipleEvalCallParams {
+    prompts: EvalCallParams<any>[]
+    name?: string
+}
+
 export async function runToolCallEval<TSchema extends AnyZodObject>(
-    tool: ToolObject<TSchema>,
-    input: string,
+    params: EvalCallParams<TSchema> | MultipleEvalCallParams,
 ) {
-    return runEval(tool.definition.name, {
+    const evalTools = 'prompts' in params ? params.prompts : [params]
+    const evalName = params.name ?? evalTools.reduce(
+        (acc, t) => `${acc}_${t.tool.definition.name}`,
+        '',
+    );
+
+    const tools = evalTools.map((t) => t.tool.definition);
+    const data = evalTools.flatMap((t) =>
+        createToolCallData(t.tool.definition.name, t.input),
+    );
+
+    return runEval(evalName, {
         task: (input) =>
             runLLM({
                 messages: [{ role: 'user', content: input }],
-                tools: [tool.definition],
+                tools,
             }),
-        data: [
-            {
-                input,
-                expected: createToolCallMessage(tool.definition.name),
-            },
-        ],
+        data,
         scorers: [ToolCallMatch],
     });
+}
+
+function createToolCallData(toolName: string, input: string | string[]) {
+    const inputList = Array.isArray(input) ? input : [input];
+
+    return inputList.map((i) => ({
+        input: i,
+        expected: createToolCallMessage(toolName),
+    }));
 }
 
 const createToolCallMessage = (toolName: string) => ({

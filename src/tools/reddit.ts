@@ -11,8 +11,8 @@ const parameters = z
         'It will return a JSON object with the title, link, subreddit, author, and upvotes of each post.',
     );
 
-export const redditLast = createTool({
-    name: 'reddit_last',
+export const redditLastest = createTool({
+    name: 'reddit_lastest',
     description: 'Use this tool to get the latest posts from Reddit.',
     parameters,
     fn: async ({ toolArgs }) => {

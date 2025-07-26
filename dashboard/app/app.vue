@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import results from '../../evals/results.json';
+import type { Results } from '../../evals/types'
 
 useHead({
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     title: "Evals Dashboard"
 });
+
+const { data: results, pending } = await useFetch<Results>(`/api/results`)
 </script>
 
 <template>
     <div className="app">
         <h1>Experiment Results Viewer</h1>
 
-        <ExperimentResults :results="results.experiments" />
+        <ExperimentResults v-if="!pending" :results="results?.experiments || []" />
     </div>
 </template>
 
 <style>
 .app {
     max-width: 800px;
-    margin: 0 auto;
     padding: 2rem;
 }
 
@@ -44,8 +45,6 @@ h1 {
 
 body {
     margin: 0;
-    display: flex;
-    place-items: center;
     min-width: 320px;
     min-height: 100vh;
 }

@@ -1,4 +1,4 @@
 import { dadJoke } from '../../src/tools/dadJoke';
 import { runToolCallEval } from '../helpers/toolCall';
 
-runToolCallEval(dadJoke, 'tell me dad joke');
+runToolCallEval({ tool: dadJoke, input: 'tell me funny dad joke' });

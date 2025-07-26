@@ -9,10 +9,10 @@ export const generateImage = createTool({
             prompt: z
                 .string()
                 .describe(
-                    "prompt to generate the image. Be sure to consider the user's original message when making a prompt. If you are unsure then ask the user to provide more details.",
+                    "prompt to generate or take a photo of anything. Be sure to consider the user's original message when making a prompt. If you are unsure then ask the user to provide more details.",
                 ),
         })
-        .describe('Generates an image and returns the url of the image.'),
+        .describe('use this tool with a prompt to generate or take a photo of anything'),
     description: 'generate an image',
     fn: async ({ toolArgs: { prompt } }) => {
         const imageUrl = await generateImageLLM(prompt);

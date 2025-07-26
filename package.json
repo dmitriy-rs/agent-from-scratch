@@ -4,10 +4,10 @@
     "type": "module",
     "workspaces": ["dashboard"],
     "scripts": {
-        "start": "bunx tsx src/index.ts",
+        "start": "bun src/index.ts",
         "dashboard": "bun --filter dashboard dev",
-        "eval": "bunx tsx evals/run.ts $1",
-        "ingest": "bunx tsx src/rag/ingest.ts",
+        "eval": "bun evals/run.ts $1",
+        "ingest": "bun src/rag/ingest.ts",
         "build": "bun build src/index.ts --compile --minify --outfile gg",
         "lint": "oxlint && prettier . --check --log-level silent",
         "lint:fix": "oxlint --fix --fix-suggestions && prettier . --write --log-level silent"
@@ -31,7 +31,6 @@
         "@types/bun": "latest",
         "oxlint": "^1.8.0",
         "prettier": "^3.6.2",
-        "tsx": "^4.20.3",
         "typescript": "^5.8.3"
     }
 }

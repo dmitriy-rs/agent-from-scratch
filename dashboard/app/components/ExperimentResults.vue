@@ -22,26 +22,17 @@ const currentExperiment = computed(() => {
 </script>
 
 <template>
-    <div>
-        <div className="controls">
-            <label htmlFor="experiment-select">Select Experiment: </label>
+    <div v-if="results.length > 0" className="controls">
+        <label htmlFor="experiment-select">Select Experiment: </label>
 
-            <select id="experiment-select" v-model="selectedExperiment">
-                <option
-                    v-for="exp in results"
-                    :key="exp.name"
-                    :value="exp.name"
-                >
-                    {{ exp.name }}
-                </option>
-            </select>
-        </div>
-
-        <ExperimentGraph
-            v-if="currentExperiment"
-            :experiment="currentExperiment"
-        />
+        <select id="experiment-select" v-model="selectedExperiment">
+            <option v-for="exp in results" :key="exp.name" :value="exp.name">
+                {{ exp.name }}
+            </option>
+        </select>
     </div>
+
+    <ExperimentGraph v-if="currentExperiment" :experiment="currentExperiment" />
 </template>
 
 <style scoped>
