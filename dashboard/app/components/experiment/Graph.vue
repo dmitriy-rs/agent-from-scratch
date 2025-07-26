@@ -11,7 +11,7 @@ import {
     PointElement,
     LineElement,
 } from 'chart.js';
-import type { Experiment } from '../../../evals/types';
+import type { Experiment } from '../../../../evals/types';
 
 ChartJS.register(
     CategoryScale,

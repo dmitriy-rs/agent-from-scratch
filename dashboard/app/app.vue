@@ -19,7 +19,6 @@ const { data: results, pending } = await useFetch<Results>(`/api/results`)
 
 <style>
 .app {
-    max-width: 800px;
     padding: 2rem;
 }
 
