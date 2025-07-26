@@ -2,11 +2,13 @@
     "name": "agents",
     "module": "index.ts",
     "type": "module",
+    "workspaces": ["dashboard"],
     "scripts": {
-        "start": "npx tsx src/index.ts",
-        "eval": "npx tsx evals/run.ts $1",
-        "ingest": "npx tsx src/rag/ingest.ts",
-        "b": "bun build src/index.ts --compile --minify --outfile gg",
+        "start": "bunx tsx src/index.ts",
+        "dashboard": "bun --filter dashboard dev",
+        "eval": "bunx tsx evals/run.ts $1",
+        "ingest": "bunx tsx src/rag/ingest.ts",
+        "build": "bun build src/index.ts --compile --minify --outfile gg",
         "lint": "oxlint && prettier . --check --log-level silent",
         "lint:fix": "oxlint --fix --fix-suggestions && prettier . --write --log-level silent"
     },
