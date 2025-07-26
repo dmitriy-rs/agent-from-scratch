@@ -10,23 +10,14 @@ const { data: results, pending } = await useFetch<Results>(`/api/results`)
 </script>
 
 <template>
-    <div className="app">
-        <h1>Experiment Results Viewer</h1>
+    <div className="p-6">
+        <h1 class="text-4xl">Experiment Results Viewer</h1>
 
         <ExperimentResults v-if="!pending" :results="results?.experiments || []" />
     </div>
 </template>
 
 <style>
-.app {
-    padding: 2rem;
-}
-
-h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
-}
-
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;

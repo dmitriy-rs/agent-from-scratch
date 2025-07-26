@@ -5,29 +5,17 @@ const { results } = defineProps<{
     results: Experiment[];
 }>();
 
-const value = defineModel<string>()
+const valueModel = defineModel<Experiment | null>();
 </script>
 
 <template>
-    <div v-if="results.length > 0" className="controls">
-        <label htmlFor="experiment-select">Select Experiment: </label>
+    <div v-if="results.length > 0" class="py-6 space-x-4">
+        <label for="experiment-select">Select Experiment: </label>
 
-        <select id="experiment-select" v-model="value">
-            <option v-for="exp in results" :key="exp.name" :value="exp.name">
+        <select id="experiment-select" class="p-2" v-model="valueModel">
+            <option v-for="exp in results" :key="exp.name" :value="exp">
                 {{ exp.name }}
             </option>
         </select>
     </div>
 </template>
-
-<style scoped>
-.controls {
-    margin: 2rem 0;
-}
-
-select {
-    margin-left: 1rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-}
-</style>
