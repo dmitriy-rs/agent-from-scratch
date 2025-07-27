@@ -60,5 +60,3 @@ export interface Record1000 extends RecordBase {
     'Revenue (Millions)': string;
     Metascore: string;
 }
-
-export interface RecordMovie2023 {}

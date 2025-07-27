@@ -1,5 +1,6 @@
 import ora from 'ora';
 import type { AIMessage } from './ai';
+import { isToolNeedApproval } from './tools';
 
 export const showLoader = (text: string) => {
     const spinner = ora({
@@ -39,11 +40,17 @@ export const logMessage = (message: AIMessage) => {
 
     // Log assistant messages
     if (role === 'assistant') {
-        // If has tool_calls, log function name
+        // If has tool_calls, log function name and ask for approval if calendar
         if ('tool_calls' in message && message.tool_calls) {
             message.tool_calls.forEach((tool) => {
                 console.log(`\n${color}[ASSISTANT]${reset}`);
                 console.log(`${tool.function.name}\n`);
+
+                if (isToolNeedApproval(tool.function.name)) {
+                    console.log(
+                        '\nDo you approve generating an image? (yes/no)\n',
+                    );
+                }
             });
             return;
         }

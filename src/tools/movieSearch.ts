@@ -6,21 +6,30 @@ export const movieSearch = createTool({
     name: 'movie_search',
     parameters: z.object({
         query: z.string().describe('The search query for finding movies'),
-        genre: z.string().optional().describe('Filter movies by genre'),
-        director: z.string().optional().describe('Filter movies by director'),
-        actor: z.string().optional().describe('Filter movies by actor'),
-        year: z.number().optional().describe('Filter movies by year'),
+        genre: z
+            .union([z.string(), z.null()])
+            .nullable()
+            .describe('Filter movies by genre'),
+        director: z
+            .union([z.string(), z.null()])
+            .nullable()
+            .describe('Filter movies by director'),
+        actor: z
+            .union([z.string(), z.null()])
+            .nullable()
+            .describe('Filter movies by actor'),
+        // year: z.number().optional().nullable().describe('Filter movies by year'),
     }),
     description:
         'Searches for movies and information about them, including title, year, genre, director, actors, rating, and description. Use this to answer questions about movies.',
     fn: async ({ toolArgs }) => {
-        const { query, actor, director, genre, year } = toolArgs;
+        const { query, actor, director, genre } = toolArgs;
 
         const filters = {
             ...(genre && { genre }),
             ...(director && { director }),
             ...(actor && { actors: actor }),
-            ...(year && { year }),
+            // ...(year && { year }),
         };
 
         let results;

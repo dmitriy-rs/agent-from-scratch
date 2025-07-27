@@ -1,5 +1,6 @@
 import { getToolMessage, type AIMessage, type AITool } from './ai';
-import { runApprovalCheck, runLLM } from './llm';
+import { runLLM } from './llm';
+import { runApprovalCheck } from './llm/approval';
 import { addMessage, getMessages } from './memory';
 import { runTool } from './toolRunner';
 import { isToolNeedApproval } from './tools';
@@ -13,7 +14,7 @@ export async function runAgent({
     tools: AITool[];
 }) {
     const history = await getMessages();
-    const isImageApproval = await handleImageApprovalFlow(history, userPrompt);
+    const isImageApproval = await handleToolApprovalFlow(history, userPrompt);
 
     if (!isImageApproval) {
         await addMessage({ role: 'user', content: userPrompt });
@@ -23,7 +24,6 @@ export async function runAgent({
 
     while (true) {
         const history = await getMessages();
-
         const response = await runLLM({
             messages: history,
             tools,
@@ -55,11 +55,11 @@ export async function runAgent({
     }
 }
 
-const handleImageApprovalFlow = async (
+const handleToolApprovalFlow = async (
     history: AIMessage[],
     userMessage: string,
 ) => {
-    const lastMessage = history[history.length - 1];
+    const lastMessage = history.at(-1);
     if (!lastMessage) {
         return false;
     }
@@ -72,7 +72,10 @@ const handleImageApprovalFlow = async (
     }
 
     const loader = showLoader('Processing approval...');
-    const approved = await runApprovalCheck(userMessage);
+    const approved = await runApprovalCheck(
+        toolCall.function.name,
+        userMessage,
+    );
 
     if (approved) {
         loader.update(`executing tool: ${toolCall.function.name}`);
