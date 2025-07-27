@@ -4,6 +4,22 @@ export interface RecordBase {
     Description: string;
 }
 
+export interface MovieMetadata extends Dict<any> {
+    title: string;
+    year: number;
+    genre: string;
+    director: string;
+    actors: string;
+    rating: number;
+    votes: number;
+    revenue: number | undefined;
+    metascore: number;
+    certificate: string | undefined;
+    poster: string | undefined;
+    duration: number;
+    reviews: number | undefined;
+}
+
 export interface Record10k extends RecordBase {
     Poster: string;
     Year: string;
@@ -45,18 +61,4 @@ export interface Record1000 extends RecordBase {
     Metascore: string;
 }
 
-export interface MovieMetadata extends Dict<any> {
-    title: string;
-    year: number;
-    genre: string;
-    director: string;
-    actors: string;
-    rating: number;
-    votes: number;
-    revenue: number | undefined;
-    metascore: number;
-    certificate: string | undefined;
-    poster: string | undefined;
-    duration: number;
-    reviews: number | undefined;
-}
+export interface RecordMovie2023 {}

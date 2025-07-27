@@ -61,7 +61,7 @@ const handleImageApprovalFlow = async (
 ) => {
     const lastMessage = history[history.length - 1];
     if (!lastMessage) {
-        return false
+        return false;
     }
 
     const toolCall =

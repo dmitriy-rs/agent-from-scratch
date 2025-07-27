@@ -27,7 +27,7 @@ export function getToolsList() {
 
 export function isToolNeedApproval(toolName: string) {
     // return toolName === generateImage.definition.name;
-    return false
+    return false;
 }
 
 export type { ToolObject };
