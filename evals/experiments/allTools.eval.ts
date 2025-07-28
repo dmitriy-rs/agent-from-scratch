@@ -1,6 +1,6 @@
 import { dadJoke } from '../../src/tools/dadJoke';
 import { generateImage } from '../../src/tools/generateImage';
-import { redditLastest, redditRandom } from '../../src/tools/reddit';
+import { redditLatest, redditRandom } from '../../src/tools/reddit';
 import { runToolCallEval } from '../helpers/toolCall';
 
 runToolCallEval<any>({
@@ -12,7 +12,7 @@ runToolCallEval<any>({
         },
         {
             input: 'what is most upvoted post on reddit',
-            tool: redditLastest,
+            tool: redditLatest,
         },
         {
             input: 'take a photo of Mars',

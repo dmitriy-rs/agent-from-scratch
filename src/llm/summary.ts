@@ -1,5 +1,9 @@
 import { runLLM } from './run';
 import type { AIMessage } from '../ai';
+import type {
+    ChatCompletionContentPartRefusal,
+    ChatCompletionContentPartText,
+} from 'openai/resources';
 
 export const summarizeMessages = async (messages: AIMessage[]) => {
     const response = await runLLM({
@@ -9,5 +13,29 @@ export const summarizeMessages = async (messages: AIMessage[]) => {
         temperature: 0.3,
     });
 
-    return (response.content as string) || '';
+    return getTextResult(response.content);
 };
+
+function getTextResult(
+    content?:
+        | string
+        | (ChatCompletionContentPartText | ChatCompletionContentPartRefusal)[]
+        | null,
+) {
+    if (!content) {
+        return '';
+    }
+    if (typeof content === 'string') {
+        return content;
+    }
+    let result = '';
+    for (const part of content) {
+        if (part.type === 'text') {
+            result += part.text;
+        } else {
+            console.error(`[Error] LLM Refusal: ${part.refusal}`);
+            return '';
+        }
+    }
+    return result;
+}

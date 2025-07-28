@@ -1,8 +1,8 @@
-import { redditLastest, redditRandom } from '../../src/tools/reddit';
+import { redditLatest, redditRandom } from '../../src/tools/reddit';
 import { runToolCallEval } from '../helpers/toolCall';
 
 runToolCallEval({
-    tool: redditLastest,
+    tool: redditLatest,
     input: 'get me latest post from rule34',
 });
 

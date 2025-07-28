@@ -17,12 +17,16 @@ async function getDb() {
     return JSONFilePreset<Data>('db.json', defaultData);
 }
 
+const lastMessagesCount = 6;
+
 export async function addMessages(messages: AIMessage[]) {
     const db = await getDb();
     db.data.messages.push(...messages.map(addMetadata));
 
-    if (db.data.messages.length >= 10) {
-        const oldestMessages = db.data.messages.slice(0, 5).map(removeMetadata);
+    if (db.data.messages.length > lastMessagesCount) {
+        const oldestMessages = db.data.messages
+            .slice(0, lastMessagesCount)
+            .map(removeMetadata);
         const summary = await summarizeMessages(oldestMessages);
         db.data.summary = summary;
     }
@@ -36,7 +40,17 @@ export async function addMessage(message: AIMessage) {
 
 export async function getMessages(): Promise<AIMessage[]> {
     const db = await getDb();
-    return db.data.messages.map(removeMetadata);
+    const messages = await db.data.messages.map(removeMetadata);
+    const lastMessages = messages.slice(-lastMessagesCount);
+
+    if (lastMessages[0]?.role === 'tool') {
+        const prevMessage = messages[messages.length - lastMessagesCount - 1];
+        if (prevMessage) {
+            return [prevMessage, ...lastMessages];
+        }
+    }
+
+    return lastMessages;
 }
 
 export const getSummary = async () => {

@@ -2,12 +2,12 @@ import { dadJoke } from './dadJoke';
 import type { ToolObject } from './factory';
 import { generateImage } from './generateImage';
 import { movieSearch } from './movieSearch';
-import { redditLastest, redditRandom } from './reddit';
+import { redditLatest, redditRandom } from './reddit';
 
 const toolsList = [
     dadJoke,
     redditRandom,
-    redditLastest,
+    redditLatest,
     generateImage,
     movieSearch,
 ] as ToolObject[];
