@@ -8,16 +8,19 @@ export interface MovieMetadata extends Dict<any> {
     title: string;
     year: number;
     genre: string;
-    director: string;
-    actors: string;
+    director: string | undefined;
+    actors: string | undefined;
     rating: number;
     votes: number;
     revenue: number | undefined;
-    metascore: number;
+    metascore: number | undefined;
     certificate: string | undefined;
     poster: string | undefined;
-    duration: number;
+    duration: number | undefined;
     reviews: number | undefined;
+    releaseDate: string | undefined
+    // An important metric computed by TMDB developers based on views per day, votes per day, number of users marking it as "favorite" and "watchlist," release date, and other metrics.
+    popularity: number | undefined
 }
 
 export interface Record10k extends RecordBase {
@@ -59,4 +62,13 @@ export interface Record1000 extends RecordBase {
     Votes: string;
     'Revenue (Millions)': string;
     Metascore: string;
+}
+
+export interface Record9000 extends RecordBase {
+    Release_Date: string
+    Popularity: string
+    Vote_Count: string
+    Vote_Average: string
+    Original_Language: string
+    Poster_Url: string
 }

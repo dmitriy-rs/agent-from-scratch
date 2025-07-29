@@ -1,7 +1,25 @@
 import 'dotenv/config';
-import type { Record1000, Record10k, RecordTop1000 } from '../types';
-import { toNumber, toMillions } from './utils';
+import type { Record1000, Record10k, Record9000, RecordTop1000 } from '../types';
+import { toNumber, toMillions, getYear } from './utils';
 import { indexMovieData } from './upsert';
+
+await indexMovieData<Record9000>('9000plus.csv', (movie) => ({
+    title: movie.Title,
+    year: getYear(movie.Release_Date),
+    genre: movie.Genre,
+    director: undefined,
+    actors: undefined,
+    rating: Number(movie.Vote_Average),
+    votes: toNumber(movie.Vote_Count),
+    revenue: undefined,
+    metascore: undefined,
+    certificate: undefined,
+    poster: movie.Poster_Url,
+    duration: undefined,
+    reviews: undefined,
+    releaseDate: movie.Release_Date,
+    popularity: toNumber(movie.Popularity)
+}));
 
 // await indexMovieData<Record10k>('imdb_movie_dataset_10k.csv', (movie) => ({
 //     title: movie.Title,

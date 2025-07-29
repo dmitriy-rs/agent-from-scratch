@@ -9,7 +9,7 @@
         "start": "bun src/index.ts",
         "dashboard": "bun --filter dashboard dev",
         "eval": "bun evals/run.ts $1",
-        "ingest": "bun src/rag/ingest.ts",
+        "ingest": "bun src/rag/ingest",
         "build": "bun build src/index.ts --compile --minify --outfile gg",
         "lint": "oxlint && prettier . --check --log-level silent",
         "lint:fix": "oxlint --fix --fix-suggestions && prettier . --write --log-level silent"
